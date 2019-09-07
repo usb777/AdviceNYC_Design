@@ -1,0 +1,1290 @@
+var head_slider_prefix = "news_slider";
+var head_slider;
+var tm;
+var timeout = 10000;
+var re = /\s*;\s*/;
+
+function start(){
+	map_menu();
+	top_menu();
+	if (head_slider_prefix && document.getElementById(head_slider_prefix)){
+  	head_slider = new imgSlider(head_slider_prefix, timeout);
+  }
+}
+
+function open_menu_header(menu_id){
+    if (!menu_id || !document.getElementById(menu_id)) return;
+    var menu = document.getElementById(menu_id);
+    if (!menu.style || !menu.style.display || menu.style.display==""){
+        menu.style.display = "block";
+    }else{
+        menu.style.display = "";
+    }
+}
+
+ function open_menu(menu_id, curr, classN, children, classOFPoint, p_id, menu_block_id){
+    if (!menu_id || !document.getElementById(menu_id)) return;
+    var menu = document.getElementById(menu_id);
+    if (!menu.style || !menu.style.display || menu.style.display=="" || menu.style.display=="none"){
+        if (children)
+        {
+            var listChildren = document.getElementsByClassName(children);
+            for (var child=0; child<listChildren.length; child++)
+            {
+                listChildren[child].style.display = "none";
+            }
+            var block = document.getElementById(menu_block_id);
+            var liTitles = block.getElementsByClassName(classOFPoint);
+            for (var liEl=0; liEl<liTitles.length; liEl++)
+            {
+                removeClass(liTitles[liEl], classOFPoint);
+            }
+            var block = document.getElementById(p_id);
+            var currTitle = block.getElementsByTagName('a');
+            addClass(currTitle[0], classOFPoint);
+           // console.log('субменю открыто');
+        }
+        menu.style.display = "block";
+        //block.classList.add('submenu_arrow_down');
+//        if (windowEven)
+//        {
+//            var count = 0;
+//            open_menu_ar[counterOpen] = {'id':menu, 'curr':curr, 'classN':classN};
+//            counterOpen++;
+//            window.onclick = function(){
+////                if (windowEven)
+////                {
+//                    if (!count){
+//                        count = 1;
+//                        return;
+//                    }
+//                    for (var key in open_menu_ar)
+//                    {
+//                        var el = open_menu_ar[key];
+//                        el['id'].style.display = '';
+//                        if (el['curr'])
+//                            removeClass(el['curr'], el['classN']);
+//                    }
+//                    window.onclick = null;    
+////                }
+//            }
+//        }
+        if (curr)
+            addClass(curr, classN);
+    }else{
+        if (children)
+        {
+            var block = document.getElementById(p_id);
+            var currTitle = block.getElementsByTagName('a');
+            removeClass(currTitle[0], classOFPoint);
+        }
+        menu.style.display = "";
+      //  console.log('cубменю закрыто');
+       // block.classList.remove('submenu_arrow_down');
+        if (curr)
+            removeClass(curr, classN);
+    }
+}
+
+function addClass(o, c){
+    var re = new RegExp("(^|\\s)" + c + "(\\s|$)", "g");
+    if (re.test(o.className)) return;
+    o.className = (o.className + " " + c).replace(/\s+/g, " ").replace(/(^ | $)/g, "");
+}
+ 
+function removeClass(o, c){
+    var re = new RegExp("(^|\\s)" + c + "(\\s|$)", "g");
+    o.className = o.className.replace(re, "$1").replace(/\s+/g, " ").replace(/(^ | $)/g, "");
+}
+
+function hasClass(o, c){
+    var re = new RegExp("(^|\\s)" + c + "(\\s|$)", "g");
+    if (re.test(o.className)) return 1;
+    return 0;
+}
+
+ function open_submenu_block(menu_id){
+    if (!menu_id || !document.getElementById(menu_id)) return;
+    var menu = document.getElementById(menu_id);
+    if (!menu.style || !menu.style.display || menu.style.display==""){
+        menu.style.display = "block";
+    }else{
+        menu.style.display = "";
+    }
+}
+
+function close_search(search_id){
+   if (!search_id || !document.getElementById(search_id)) return; 
+   document.getElementById(search_id).style.display = "none";
+}
+
+function open_search(search_id){
+   if (!search_id || !document.getElementById(search_id)) return; 
+   document.getElementById(search_id).style.display = "block";
+}
+   
+
+
+function start_second(){
+	top_menu();
+}
+
+function map_menu(){
+	var map_id = "map";
+	var map_menu_id = "map_menu";
+	var map_menu = document.getElementById(map_menu_id);
+        if(document.getElementById(map_id) == "undefined" || document.getElementById(map_id) == null) return;
+	var map = document.getElementById(map_id);
+  var temp_map = map.src;
+  var temp_title = map.title;
+
+	$('li', map_menu).bind("mouseover",function(){
+	  		var el = $('a', this)[0];
+	  		if (!el) return;
+	  		map.src= el.rel;
+	  		map.title= el.title;
+	    });
+	$('li', map_menu).bind("mouseout",function(){
+	  		map.src = temp_map;
+	      map.title = temp_title;
+	    });
+}
+
+function top_menu(){
+	var menu_id = "tm";
+	var btn = document.getElementById(menu_id);
+	var menu = $('.dropdown_menu', btn)[0];
+  var curr_menu = null;
+  var cl_name = "li_sel";
+
+	$('>a',btn).click(function ()
+	{
+		var el = this.parentNode;
+	  if (el.className=="menu_btn"){
+	  	el.className += " menu_btn_selected";
+	  }else{
+			el.className = "menu_btn";
+			if (curr_menu){
+				curr_menu.className = "";
+			}
+			curr_menu = null;
+	  }
+		return false;
+	});
+
+	$('>ul>li>a.with_submenu', menu).bind("click",function(){
+//	$('a', menu).bind("click",function(){
+		//		if (this.className!="with_submenu") return true;
+				if (curr_menu){
+					curr_menu.className = "";
+				}
+				var curr_li = this.parentNode;
+				if (curr_menu == curr_li){ 
+					curr_menu = null;
+					return false;
+				}
+				curr_menu = curr_li;
+				curr_li.className = cl_name;
+				return false;
+				//this.href = "";
+	    });
+}
+
+function form_submit(form_id){
+	var form_el = document.getElementById(form_id);
+	//alert(form_el);
+	if (form_el.attributes.ajax){
+		show_hear(form_el.attributes.action.nodeValue, form_el.attributes.content_id.nodeValue, form_el)
+	}else{
+		form_el.submit();
+	}
+}
+
+var opros_ajax = null;
+function vote(url,res_id, short){
+	if (!document.getElementById(res_id)) return;
+	var msg = "";
+	if (!short){
+	  var msg   = $('#vote_form').serialize();
+	}
+
+
+	var xhr = new XMLHttpRequest();
+	var end_url = 'xhr=json'+(msg=="" ? "": "&"+msg)+'&r=' + Math.random();
+	url += url.indexOf('?')==-1 ? "?"+end_url : "&"+end_url;
+  xhr.open('GET', url, true);
+ 
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState != 4) return;
+		//	document.getElementById(res_id).innerHTML = xhr.responseText;
+		//	alert(opros_ajax);
+			var responseObj = eval( '(' + xhr.responseText + ')' );
+			document.getElementById(res_id).innerHTML = responseObj.html;
+			Diagramm(responseObj.svg);
+			if (short) return false;
+  }
+  xhr.send(null);
+	if (short) return false;
+}
+
+function next_vote(url,res_id) {
+	if (!document.getElementById(res_id)) return;
+
+	var xhr = new XMLHttpRequest();
+	var end_url = 'xhr=html&r=' + Math.random();
+	url += url.indexOf('?')==-1 ? "?"+end_url : "&"+end_url;
+	xhr.open('GET', url, true);
+ 
+	xhr.onreadystatechange = function() {
+    if (xhr.readyState != 4) return;
+			document.getElementById(res_id).innerHTML = xhr.responseText;
+			return false;
+	}
+	xhr.send(null);
+	return false;
+}
+
+var curr_video_url = null;
+var video_conteiner_id = null;
+
+function show_video(url, parent_popup_id, popup_id) {
+	if (!document.getElementById(parent_popup_id) || !document.getElementById(popup_id)) return false;
+	
+	if (curr_video_url == url){
+		document.getElementById(parent_popup_id).style.display='block';
+                return false;
+	}
+	var href= url;
+	var xhr = new XMLHttpRequest();
+	var end_url = 'xhr=html&r=' + Math.random();
+	var formats = supports_video_format();
+	//end_url += "&mp4="+formats.mp4 + "&ogg="+formats.ogg + "&webm="+formats.webm;
+	for (key in formats){
+		end_url += "&"+key+"="+formats[key];
+	}
+	
+	
+	url += url.indexOf('?')==-1 ? "?"+end_url : "&"+end_url;
+
+	xhr.open('GET', url, true);
+ 
+	xhr.onreadystatechange = function() {
+    if (xhr.readyState != 4) return;
+    	//alert( xhr.responseText);
+			if (xhr.responseText=="") return;
+			document.getElementById(popup_id).innerHTML = xhr.responseText;
+			show_curr_video(parent_popup_id, popup_id)
+			curr_video_url = href;
+						
+			return false;
+			
+  }
+  xhr.send(null);
+ 	return false;
+}
+
+function show_curr_video(parent_popup_id, popup_id, curr_video){
+	if (!document.getElementById(popup_id) || !document.getElementById(parent_popup_id)) return;
+	if (curr_video){
+		document.getElementById(popup_id).innerHTML = curr_video;
+	}
+	document.getElementById(popup_id).style.maxWidth = "648px";
+	document.getElementById(parent_popup_id).style.display='block';
+	/*$("video").load(function(){
+		setPopupActivity(parent_popup_id, popup_id);
+	});*/
+	curr_popup_id = popup_id;
+	topBorder = positionPopup(0);
+	setPopupActivity(parent_popup_id, popup_id);
+	$('#main_video').load(function(){
+		topBorder = positionPopup();
+	});
+}
+
+function supports_video_format() {
+//	return !!document.createElement('video').canPlayType;
+//		if (!supports_video()) { return false; }
+	var v = document.createElement("video");
+	var mp4 = decode_video_support(v.canPlayType('video/mp4; codecs="H.264, AAC"'));
+	var ogg = decode_video_support(v.canPlayType('video/ogg; codecs="theora, vorbis"'));
+	var webm = decode_video_support(v.canPlayType('video/webm; codecs="VP80, vorbis"'));
+	return {"mp4": mp4, "ogg":ogg, "webm": webm};
+}
+
+function decode_video_support(res){
+	//return (res=='probably') ? true : false;//maybe
+	return (res=='probably') ? 1 : 0;//maybe
+}
+
+
+var video_error_inf = {'ru':"Для просмотра видео установите, пожалуйста, <a href='http://get.adobe.com/ru/flashplayer/' target='_blank'>Flash Player</a> <br/>или скачайте необходимый Вам формат видео:</br>", 'en':"Please install <a href='http://get.adobe.com/ru/flashplayer/' target='_blank'>Flash Player</a> <br/>or download the video in a necessary format", 'by':"Каб паглядзець відэа, устанавіце, калі ласка, <a href='http://get.adobe.com/ru/flashplayer/' target='_blank'>Flash Player</a> <br/>або скачайце неабходны Вам фармат відэа:"};
+
+function insertVideo(video_conteiner_id, path_to_player, width, height, path_to_flv, path_to_poster, comment, path_to_styles, path_to_exressInstall, lang){
+	if (!document.getElementById(video_conteiner_id)) return;
+	var video_id = "main_video";
+	var flashvars = {"uid":video_id,"uppod":"video","comment":comment,"st":path_to_styles,"file":path_to_flv,"poster":path_to_poster,"wmode":"auto"};
+	var params = {bgcolor:"#3B3B3B",  allowFullScreen:"true", allowScriptAccess:"always",id:video_id};
+	var expressInstall = false;
+	if (path_to_exressInstall){
+		expressInstall = path_to_exressInstall;
+	}
+ 	var video_content = "<div id='"+video_id+"'>"+ video_error_inf[lang]+"</div>";
+ 	/*if (links.mp4){
+		video_content += " <a href='"+links.mp4+"' title='mp4'>mp4</a><br/>";
+	}
+	if (path_to_flv){
+		video_content +="<a href='"+path_to_flv+"' title='flv'>flv</a><br/>";
+	}
+	if (links.webm){
+		video_content +="<a href='"+links.webm+"' title='mp4'>webm</a><br/>";
+	}
+	if (links.ogg){
+		video_content +="<a href='"+links.ogg+"' title='ogg'>ogg</a></div>";
+	}*/
+	document.getElementById(video_conteiner_id).innerHTML = video_content;
+ 	var res = new swfobject.embedSWF(path_to_player, video_id, width, height, "9.0.115.0", expressInstall, flashvars, params);
+ 	/*document.getElementById(video_conteiner_id).onmouseover = null;
+ 	document.getElementById(video_conteiner_id).onmouseout = null;*/
+}
+
+var lastPageY = null;
+var topBorder = null;
+var curr_popup_id = null;
+
+function show_el_obr(parent_popup_id, popup_id) {
+	if (!document.getElementById(parent_popup_id)) return;
+	document.getElementById(parent_popup_id).style.display = "block";
+	
+	curr_popup_id = popup_id;
+	topBorder = positionPopup();
+
+	setPopupActivity(parent_popup_id, popup_id);
+	
+	return false;
+}
+
+
+
+function setPopupActivity(parent_popup_id, popup_id){
+	//$(window).keypress(function (e) {
+		$(window).keydown(function (e) {
+		if (e.keyCode == 27) {
+			close_popup(parent_popup_id);
+		}
+	});
+	
+	
+	lastPageY = window.pageYOffset || document.documentElement.scrollTop;
+	$(window).scroll(function () {
+		var pageY = window.pageYOffset || document.documentElement.scrollTop;
+		var scrollTop = lastPageY - pageY;
+		
+		var el = document.getElementById(popup_id);
+		
+		var bottom_border = el.offsetTop + el.clientHeight;
+		var top_border = el.offsetTop;
+		
+		if (pageY==0){
+			el.style.top = topBorder+ "px";
+		}else if (pageY > lastPageY && bottom_border>window.innerHeight){
+			if (bottom_border - window.innerHeight > scrollTop){
+				el.style.top = el.offsetTop + scrollTop + "px";
+			}else{
+				el.style.top = el.offsetTop - bottom_border + window.innerHeight + 2 + "px";
+			}
+		}else if (pageY < lastPageY && top_border<topBorder){
+			if (top_border + scrollTop < topBorder){
+				el.style.top = el.offsetTop + scrollTop + "px";
+			}else{
+				el.style.top = topBorder+ "px";
+			}
+		}
+		lastPageY = pageY;
+	});
+	
+	window.onresize = positionPopup;	
+}
+
+function positionPopup(top_p){
+	if (!document.getElementById(curr_popup_id)) return;
+	var el = document.getElementById(curr_popup_id);
+	var leftBorder = (window.innerWidth>el.clientWidth) ?  Math.floor ((window.innerWidth-el.clientWidth)/2) : 0;
+	el.style.left = leftBorder+"px";
+	var topBorder = (top_p!=undefined && top_p!=null) ? top_p : ((window.innerHeight>el.clientHeight) ?  Math.floor ((window.innerHeight-el.clientHeight)/2) : 0);
+	el.style.top = topBorder + "px";
+	return topBorder;
+}
+
+
+
+/*function send_fb_form(url,ok_id, error_id, btn_id) {
+	var msg   = $('#fb_form').serialize();
+	if (!document.getElementById(ok_id) || !document.getElementById(error_id) || !document.getElementById(btn_id)) return;
+
+
+	var xhr = new XMLHttpRequest();
+	var end_url = 'xhr=html&'+msg+'&r=' + Math.random();
+	url += url.indexOf('?')==-1 ? "?"+end_url : "&"+end_url;
+	xhr.open('POST', url, true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	
+	xhr.onreadystatechange = function() {
+    if (xhr.readyState != 4) return;
+			if (xhr.responseText=="ok"){
+				document.getElementById(ok_id).style.display = "block";
+			}else{
+				document.getElementById(error_id).style.display = "block";
+			}
+			document.getElementById(btn_id).style.display = "none";	
+			return false;
+	}
+	xhr.send(msg);
+	return false;
+}*/
+
+
+
+function show_photo(url, parent_popup_id, popup_id) {
+    
+	if (!document.getElementById(parent_popup_id) || !document.getElementById(popup_id)) return false;
+	
+	if (curr_video_url == url){
+		document.getElementById(parent_popup_id).style.display='block';
+		return false;
+	}
+	var href= url;
+	var xhr = new XMLHttpRequest();
+	var end_url = 'xhr=html&r=' + Math.random();
+	url += url.indexOf('?')==-1 ? "?"+end_url : "&"+end_url;
+	xhr.open('GET', url, true);
+ 
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState != 4) return;
+			//alert( xhr.responseText);
+				if (xhr.responseText=="") return;
+				document.getElementById(popup_id).innerHTML = xhr.responseText;
+				show_curr_photo(parent_popup_id, popup_id)
+				
+				curr_video_url = href;
+				
+				return false;
+				
+	}
+	xhr.send(null);
+ 	return false;
+}
+
+function show_curr_photo(parent_popup_id, popup_id, curr_photo){
+	if (!document.getElementById(parent_popup_id) || !document.getElementById(popup_id)) return;
+	if (curr_photo){	
+		document.getElementById(popup_id).innerHTML = curr_photo;
+	}
+	document.getElementById(parent_popup_id).style.display='block';
+
+	$("#big_photo").load(function(){
+		document.getElementById(popup_id).style.maxWidth = document.getElementById('big_photo').clientWidth+0+"px";
+	 	curr_popup_id = popup_id;
+		topBorder = positionPopup();
+		setPopupActivity(parent_popup_id, popup_id);
+
+		//$(window).keypress(function (e) {
+			$(window).keydown(function (e) {
+		  if (e.keyCode == 27) {
+			//close_photo(parent_popup_id);
+			close_popup(parent_popup_id);
+		  } else if (e.keyCode == 37) {//стрелка влево
+			document.getElementById("ph_prev").click();
+			//return false;
+		  }
+		  else if (e.keyCode == 39){//стрелка вправо
+			document.getElementById("ph_next").click();
+			//return false;
+		  }
+		  
+		});	
+	});
+	
+	
+}
+
+
+function close_popup(parent_popup_id){
+	document.getElementById(parent_popup_id).style.display='none';
+	window.onscroll = null;
+	window.onkeypress = null;
+	window.onresize = null;
+}
+
+var curr_usk = null;
+
+var coord_points = [];
+function show_usk_mob(curr_el, url_part, url, content_id) {
+//    if (document.cookie)
+//    {
+//        
+//    }
+//    setDocumentCookies("menu_p", "url_part");
+    show_usk(curr_el, url, content_id);
+    var parent = document.getElementById("usk_menu_mob");
+    parent.innerHTML = curr_el.innerHTML;
+}
+function show_usk(curr_el, url, content_id) {
+	if (!document.getElementById(content_id)) return false;
+	if (curr_usk==null){
+		var sel_el = $(".curr_usk>a")[0];
+	}
+	if (curr_usk == url || (curr_usk==null && sel_el==curr_el)){
+		return false;
+	}
+	var href= url;
+	var xhr = new XMLHttpRequest();
+	var end_url = 'xhr=html&r=' + Math.random();
+	url += url.indexOf('?')==-1 ? "?"+end_url : "&"+end_url;
+	xhr.open('GET', url, true);
+ 
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState != 4) return;
+			//alert( xhr.responseText);
+			if (xhr.responseText=="") return;
+			document.getElementById(content_id).innerHTML = xhr.responseText;
+			curr_usk = href;
+			$(".curr_usk").removeClass("curr_usk");
+			curr_el.parentNode.className = "curr_usk";
+                        
+                        /////////////   for map!
+                        includeMap();
+                        /////////////
+                        
+			if (curr_el.rel && curr_el.rel=="hear"){
+				add_ajax(content_id);
+			}
+                         if (document.getElementById("day")){
+                             $("#day").datepicker({buttonImage:"/desimages/calendar_btn.png", showOn:"button", buttonImageOnly:true});
+                             $("#day").datepicker({dateFormat:"dd.mm.YYYY"});
+   }
+			return false;
+				
+	}
+	xhr.send(null);
+        
+ 	return false;
+}
+
+
+function includeMap(){   
+    if ( document.getElementById('raion_select_coordinates') ) {
+        $('#raion_select_coordinates div').each(function(index, element){
+           coord_points.push(element.id.replace("raion_title_", ""));
+        });
+    }
+    initMap();
+}
+
+function add_ajax(content_id){
+	var content_el = document.getElementById(content_id);
+	$('a', content_el).click(function(){
+             if (this.attributes.href.nodeValue[0]=="#") return true;
+	  		return show_hear(this.attributes.href.nodeValue, content_id);
+			//return false;
+	    });
+	//var forms = $('form', content_el);//.attributes.ajax = 1;
+	//$('form', content_el).attributes.content_id = content_id;
+	/*for(var i=0; i<forms.length;i++){
+		forms[i].ajax = 1;
+		forms[i].content = content_id;
+	}*/
+	$('form', content_el).attr({"ajax":1,"content_id":content_id});
+
+	$('form', content_el).bind("submit", function(){
+	  		return show_hear(this.attributes.action.nodeValue, content_id, this);
+			//return false;
+	    });
+		
+		/*$('a', content_el).load(function(){ 
+		this.bind("click",function(){
+	  		show_hear(this.href, content_id);
+			//return false;
+	    });
+		});*/
+}
+
+function show_hear(url, content_id, forma) {
+	if (!document.getElementById(content_id)) return false;
+	
+	var xhr = new XMLHttpRequest();
+	var msg = "";
+	if (forma){
+		msg   = $(forma).serialize();
+	}
+	var end_url = 'xhr=html&r=' + Math.random()+(msg=="" ? "": "&"+msg);
+	url += url.indexOf('?')==-1 ? "?"+end_url : "&"+end_url;
+	xhr.open('GET', url, true);
+	
+ 
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState != 4) return;
+			//alert( xhr.responseText);
+			if (xhr.responseText=="") return;
+			document.getElementById(content_id).innerHTML = xhr.responseText;
+			add_ajax(content_id);
+                        if (document.getElementById("day")){
+     $("#day").datepicker({buttonImage:"/desimages/calendar_btn.png", showOn:"button", buttonImageOnly:true});
+     $("#day").datepicker({dateFormat:"dd.mm.YYYY"});
+   }
+			return false;
+				
+	}
+	xhr.send(null);
+ 	return false;
+}
+
+/*Слайдер*/
+function imgSlider(prefix, timeout)
+{
+  this.prefix = prefix;
+  this.currIndex =1;
+  var children = $(">div", document.getElementById(this.prefix+"_info"));//document.getElementById(this.prefix+"_info").getElementsByTagName("div");
+  this.maxIndex = children.length;
+  this.nextIndex = 2;
+  this.timeout = timeout || 10000;
+  this.sl_timeout;
+  
+  this.imgSlider_findNext = imgSlider_findNext;
+  this.imgSlider_setEvents = imgSlider_setEvents;
+  this.imgSlider_start = imgSlider_start;
+  this.imgSlider_stop = imgSlider_stop;
+  this.imgSlider_changeImg = imgSlider_changeImg;
+  this.imgSlider_checkSelected = imgSlider_checkSelected;
+
+	this.imgSlider_findNext();
+	this.imgSlider_setEvents();
+	this.imgSlider_start();
+}
+
+function imgSlider_setEvents()
+{
+	if (!document.getElementById(this.prefix+"_nav")) return;
+  var children = $(">div", document.getElementById(this.prefix+"_nav"));//document.getElementById(this.prefix+"_info").getElementsByTagName("div");
+  for (var i=0; i<children.length;i++ )
+  {
+		var el = children[i];
+  	children[i].index = (i+1);
+    children[i].onclick = function(){
+    	changeImg.call(head_slider, this);
+    };
+  }
+}
+
+function imgSlider_findNext()
+{
+	this.nextIndex = this.currIndex%this.maxIndex +1
+ /* if (this.currIndex<this.maxIndex){
+  	this.nextIndex = this.currIndex +1;
+  }else{
+  	this.nextIndex = 1;
+	}*/
+}
+
+function imgSlider_start()
+{
+	this.sl_timeout = setInterval(function(){imgSlider_changeImg.call(head_slider)}, this.timeout); 
+}
+
+function imgSlider_stop(i)
+{
+  clearInterval(this.sl_timeout);
+//  document.getElementById(this.prefix+"_img"+this.currIndex).stop = 1;
+	clearTimeout(tm);
+	document.getElementById(this.prefix+"_img"+this.currIndex).className="";
+	document.getElementById(this.prefix+"_img"+this.nextIndex).className=this.prefix+"_img_selected";
+	document.getElementById(this.prefix+"_info"+this.currIndex).className = "";
+	document.getElementById(this.prefix+"_info"+this.nextIndex).className = this.prefix+"_info_selected";
+	document.getElementById(this.prefix+"_nav"+this.currIndex).className = "";
+	document.getElementById(this.prefix+"_nav"+this.nextIndex).className = this.prefix+"_nav_selected";
+	document.getElementById(this.prefix+"_img"+this.currIndex).style.opacity="";
+	document.getElementById(this.prefix+"_img"+this.currIndex).style.filter = '';
+	document.getElementById(this.prefix+"_img"+this.nextIndex).style.opacity=1;
+	document.getElementById(this.prefix+"_img"+this.nextIndex).style.filter = 'alpha(opacity=100)';
+	this.currIndex = this.nextIndex;
+	this.imgSlider_findNext();
+}
+
+function imgSlider_changeImg()
+{
+	var curr = document.getElementById(this.prefix+"_img"+this.currIndex);
+	var next = document.getElementById(this.prefix+"_img"+this.nextIndex);
+	if (!curr || !next) return;
+	var op = 0;
+	//curr.style.position = "absolute";
+	//next.className = this.prefix+"_img_selected";
+	clearInterval(this.sl_timeout);
+	clearTimeout(tm);
+	var self = this;
+	function changeOpacity(){
+		op += 0.05;
+		curr.style.opacity = 1-op;
+		curr.style.filter = 'alpha(opacity='+ 100-op*100 +')';
+		next.style.opacity = op;
+		next.style.filter = 'alpha(opacity='+ op*100 +')';
+		tm = setTimeout(function(){changeOpacity()},10);
+		if (op>=1){// || (curr.stop && curr.stop==1)){		
+		    curr.style.opacity = "";
+		    curr.style.filter = '';
+		    // curr.className = "";
+	        curr.style.position = "";
+	        curr.style.display = "none";
+	        curr.style = "";
+	        clearTimeout(tm);
+	
+	        self.currIndex = self.nextIndex;
+	        self.imgSlider_findNext();
+	        self.imgSlider_checkSelected();
+	        self.imgSlider_start();
+	      }
+		};
+		changeOpacity();
+		document.getElementById(this.prefix+"_info"+this.currIndex).className = "";  
+		document.getElementById(this.prefix+"_info"+this.nextIndex).className = this.prefix+"_info_selected";
+		document.getElementById(this.prefix+"_nav"+this.currIndex).className = "";  
+		document.getElementById(this.prefix+"_nav"+this.nextIndex).className = this.prefix+"_nav_selected";
+		curr.style.display="block";
+		curr.className = "";
+		next.className = this.prefix+"_img_selected";
+//	document.getElementById(this.prefix+"_title").firstChild.innerHTML = document.getElementById(this.prefix+"_item"+this.nextIndex).firstChild.title;
+}
+
+function changeImg(el)
+{
+	if (!el) return;
+	var i = el.index;
+        if (!i || !document.getElementById(this.prefix+"_img"+i)) return;
+        if (i==this.currIndex) return;
+        
+	this.imgSlider_stop(i);
+        
+  var curr_img = document.getElementById(this.prefix+"_img"+i);
+  //var curr_nav = document.getElementById(this.prefix+"_nav"+i);
+	var curr_info = document.getElementById(this.prefix+"_info"+i);
+	
+	
+	document.getElementById(this.prefix+"_img"+this.currIndex).className = "";
+  document.getElementById(this.prefix+"_info"+this.currIndex).className = "";
+  document.getElementById(this.prefix+"_nav"+this.currIndex).className = "";
+//	document.getElementById(this.prefix+"_title").firstChild.innerHTML = el.firstChild.title;
+        
+  el.className = this.prefix+"_nav_selected";
+	
+	curr_img.className = this.prefix+"_img_selected";
+	curr_info.className = this.prefix+"_info_selected";
+        
+        
+	this.currIndex = i;
+	curr_img.style.opacity="";
+	curr_img.style.filter = '';
+	this.imgSlider_findNext();
+	this.imgSlider_checkSelected();
+	this.imgSlider_start();
+}
+
+function imgSlider_checkSelected(){
+	    if (!document.getElementById(this.prefix)) return;
+	    var children = document.getElementById(this.prefix).children;//getElementsByTagName("div");
+	    var nav_children = document.getElementById(this.prefix+"_nav").children;
+	    var info_children = document.getElementById(this.prefix+"_info").children;
+	    for (var i=0; i<children.length-1;i++ )
+	    {
+	        children[i].style = "";
+	       if (children[i].className.toLowerCase()==this.prefix+"_img_selected"){
+	            if (this.currIndex>=1 && this.currIndex<=this.maxIndex){
+	                if ((i+1)!=this.currIndex){
+	                    children[i].className = "";                    
+	                }else{
+	                   nav_children[i].className = this.prefix+"_nav_selected"; 
+	                   info_children[i].className = this.prefix+"_info_selected";
+	                   continue;
+	                }
+	            }else{
+	                this.currIndex = i+1;
+	                if (nav_children[i]){
+	                    nav_children[i].className = this.prefix+"_nav_selected";
+	                    info_children[i].className = this.prefix+"_info_selected";
+	                }
+	                continue;
+	            }
+	        }
+	        if (nav_children[i]){
+	            if (this.currIndex == (i+1)){
+	                nav_children[i].className = this.prefix+"_nav_selected";
+	            }else{
+	                nav_children[i].className = "";
+	            }
+	        }
+	        if (info_children[i]){
+	            if (this.currIndex == (i+1)){
+	                info_children[i].className = this.prefix+"_info_selected";
+	            }else{
+	                info_children[i].className = "";
+	            }
+	        }
+	        
+	    }
+	    if (this.currIndex<1 || this.currIndex>this.maxIndex){
+	        this.currIndex = 1;
+	        children[this.currIndex].className = this.prefix+"_img_selected";
+	        nav_children[this.currIndex].className = this.prefix+"_nav_selected";
+	        info_children[this.currIndex].className = this.prefix+"_info_selected";
+	    }
+	    this.imgSlider_findNext();
+	}
+	
+
+/*Диаграмма*/
+function drawDiagramm(info){
+	if (!info || info.length==0) return;
+	for(var i=0;i<info.length; i++){
+		if (!info[i].id || !info[i].info) continue;
+		new Diagramm(info[i]);
+	}
+}
+
+function Diagramm(inf){
+	var el = document.getElementById(inf.id);
+	var info = inf.info;
+	var curr_angle = 0;	
+	var R = 150;
+	var svg = "<svg width='100%' height='100%' viewBox='0 0 "+(2*R+20)+","+(2*R+20)+"'>";
+
+	for (var i=0;i<info.length; i++){
+		if (!info[i].percent) continue;
+		var res = makeDiagramm(info[i], R, curr_angle, svg);
+		svg = res.svg;
+		curr_angle = res.curr_angle;
+	}
+	svg += "</svg>";
+	el.innerHTML = svg;
+}
+
+function makeDiagramm(info, R, curr_angle, svg)
+{
+	var center_x = R+10;
+	var center_y = R+10;
+	var percent = info.percent;
+	var angle = percent==100 ? 2*Math.PI*0.9999 : 2*Math.PI*percent/100;
+	var end_angle = curr_angle + angle;
+	var curr_x = center_x+R*Math.cos(curr_angle);
+	var curr_y = center_y - R*Math.sin(curr_angle);
+	var end_x = center_x + R*Math.cos(end_angle);
+	var end_y = center_y - R*Math.sin(end_angle);
+//	Math.sin(Math.PI);
+  svg += "<path d='M"+(center_x)+","+(center_y)+" L"+curr_x+","+curr_y+" A"+R+","+R+" 0 "+(angle>Math.PI? 1:0)+",0 "+end_x+","+end_y+" z' ";
+	if (info.class){
+		svg += "class='"+info.class+"'/>";
+	}else{
+		svg +="/>";
+	}
+	return {'svg':svg, 'curr_angle':end_angle};
+}
+
+function open_block(block_id,block_id2){
+   if (!block_id || !document.getElementById(block_id)) return;
+    if(document.getElementById(block_id).style.display=="block"){
+    	document.getElementById(block_id).style.display = 'none';
+    }else{
+    	document.getElementById(block_id).style.display = 'block';
+    }
+    if(block_id2!=undefined){
+    	if(document.getElementById(block_id2).style.display=="block"){
+        	document.getElementById(block_id2).style.display = 'none';
+        }else{
+        	document.getElementById(block_id2).style.display = 'block';
+        }
+    }
+    var count = 0;
+    window.onclick = function(){
+        if (!count){
+            count = 1;
+            return;
+        }
+        document.getElementById(block_id).style.display = 'none';
+        window.onclick = null;
+    }
+}
+
+/*просчет высоты блоков*/
+
+function updateHeightBlock()
+{
+    setHeigthBlock();
+
+    $(window).on('resize', function() {
+       setHeigthBlock();
+    });
+}
+
+
+function setHeigthBlock() {
+    var contaners = $('.scriptHeight');
+    if (contaners.length === 0){
+        return false;
+    }
+
+   contaners.each(function(i, element) {
+       caclHeightBlock(element);
+    });
+};
+
+function caclHeightBlock(element){
+    var heightOfBlock = $(element).innerHeight();
+    
+    if ( heightOfBlock ) {
+        var children = $(element).children();
+        if (children.length === 0){
+            return false;
+        }
+
+        if( checkWidth(element, children) ) return;
+
+        var arrValueHeight = [];
+
+        children.each( function(i, child){
+            if ( $(child).hasClass("one_cell_height")){
+                /* 
+                 * удалим установленные ранее скриптом стили, а именно высоту. 
+                 * это необходимо для корректной работы при срабатывании 
+                 * события resize 
+                 */
+
+                $(child).attr('style', ''); 
+                arrValueHeight.push( $(child).innerHeight() );
+            } 
+        });
+
+        if(arrValueHeight.length === 0){
+            return false;
+        }
+
+        var maxValueHeight = Math.max.apply(null, arrValueHeight);
+
+        children.each( function (i, child){
+            if ( $(child).hasClass("one_cell_height") ){
+                $(child).innerHeight( maxValueHeight ) ;
+            }  
+        });
+    }
+
+}
+
+function checkWidth(element, children) {
+
+    var widthParentBlock = $(element).width();
+    var widthChildBlock = $(children[0]).width();
+
+    var temp = widthParentBlock - widthChildBlock; 
+
+    if( temp < 70){
+        /**
+         * удаляем стили. Необходимо для корректного работы при 
+         * срабатывания события resize
+         */
+        children.each(function(i, child) {
+            $(child).attr('style', ''); 
+        });
+        return true;
+    }
+    return false;
+}
+
+/*электронные обращения*/
+
+//
+//$(document).ready(function(){
+//  
+//   $(".hint_btn").click(function(){
+//      $(this).children(".hint").toggle();
+//       //$(this).parent().toggleClass('hint_with_border');
+//      
+//   });
+//
+//});          
+// 
+    function checkFBForm(els)
+{
+  var res = 1;
+  for (var i=0; i<els.length; i++){
+    res &= checkInput(els[i]);
+    }
+  if (!res){
+    return false;
+  }else{
+    return true;
+    }
+}
+
+function checkInput(el_id){
+    var test;
+    if (!document.getElementById(el_id)) return true;
+    var el = document.getElementById(el_id);
+    var fake_select = document.getElementById('select_elobr');
+    var sp = el.nextElementSibling ? el.nextElementSibling : el.nextSibling;
+    if(!sp) return true;
+    if (el.tagName.toLowerCase() == "input" && el.type == "hidden" && el.value == "") {
+        fake_select.style.border = "1px solid #f1124c";
+    }
+    
+    if (el.tagName.toLowerCase() == "input" && el.type == "hidden" && el.value !== "") {
+        fake_select.style.border = "1px solid #e9eaed";
+    }
+    if ((el.tagName.toLowerCase()=="select" && el.value==0) || el.value==""){
+        sp.style.visibility = "visible";
+        el.style.border = "1px solid #f1124c";
+        return false;
+    }else{
+        sp.style.visibility = "hidden";
+        el.style.border = "1px solid #e9eaed";
+        return true;
+    }
+}
+
+function deleteBlock(items_id)
+{
+    var newsItemsElem = document.getElementById(items_id);
+    if (newsItemsElem !== undefined && newsItemsElem !== null )
+    {
+        var parentElem = newsItemsElem.parentNode;
+        parentElem.removeChild(newsItemsElem);
+        var newElem = document.createElement("div");
+        newElem.id = items_id;
+        parentElem.appendChild(newElem);
+        newElem.hidden = false;
+    }
+}
+
+function sendAjaxRequest(url, res_block_id)
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState != 4) return;
+
+        if (xhr.responseText=="") return;
+
+            var newsItemsElem = document.getElementById(res_block_id);
+            newsItemsElem.innerHTML = xhr.responseText;
+
+        return false;
+    }
+    xhr.send(null);
+    
+    return false;
+}
+
+function sendAjaxRequestPhoto(url, get_params, container_id)
+{
+    var xhr = new XMLHttpRequest();
+    var url_part = "";
+    if(String(get_params) !== "")
+    {
+        url_part = "&"+get_params;
+    }
+    var end_url = 'xhr=html'+url_part+'&r=' + Math.random();
+    url += url.indexOf('?')==-1 ? "?"+end_url : "&"+end_url;
+    xhr.open('GET', url, true);
+
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState != 4) return;
+
+        if (xhr.responseText=="") return;
+
+            document.getElementById(container_id).innerHTML = xhr.responseText;
+
+        return false;
+    }
+    xhr.send(null);
+    return false;
+}
+function show_all_albums(url, container_id)
+{
+    get_params="tpl=rubricsList_mobile&without_page=1";
+    sendAjaxRequestPhoto(url, get_params, container_id);
+    return;
+}
+
+function updateSelectedRegion(selected_region_url)
+{
+    var sel_reg_id = "region_url_"+selected_region_url;
+    var node = document.getElementById(sel_reg_id);
+    var region_selected = document.getElementById("region_selected");
+    region_selected.innerHTML = node.innerHTML;
+    return;
+}
+
+function initRegionNews(language)
+{
+//    if(!document.getElementById("regions_container")) return;
+    if (document.cookie)
+    {
+        strings = document.cookie.split(re);
+        for (var i=0; i<strings.length; i++)
+        {
+          var temp = strings[i].split("=");
+             if (temp[0] === "news_region_url")
+             {
+                var temp_part = temp[1].split("/");
+                if(temp_part[1] === language)
+                {
+                    selectRegion(temp[1], [{"showtop": "0","tpl": "newsRegionList", "limit": "6"},
+                                        {"showtop": "1", "tpl": "newsRegion", "limit": "4"}]);
+                    updateSelectedRegion(temp[1]);
+               break;
+             }
+          }
+        }
+     }
+}
+
+function setDocumentCookies(name, value)
+{
+    var date = new Date(new Date().getTime() + 60 * 1000000000000);
+    document.cookie = "'"+name+"=; expires=Thu, 01 Jan 1970 00:00:00 GMT;'";
+    document.cookie = "news_region_url=" + value + '; path=/; expires='+date;
+}
+
+function selectRegion(url, config)
+{
+    if(!document.getElementById("region_top_news_items")) return;
+    if(!document.getElementById("region_news_items")) return;
+    deleteBlock("region_top_news_items");
+    deleteBlock("region_news_items");
+    var selected_region_url = url;
+    var urldataAll = url+"/lastNews/?xhr=html"+"&tpl="+config["0"]["tpl"]+"&showtop="+config["0"]["showtop"]+"&limit="+config["0"]["limit"];
+    var urldataTop =  url+"/lastNews/?xhr=html"+"&tpl="+config["1"]["tpl"]+"&showtop="+config["1"]["showtop"]+"&limit="+config["1"]["limit"];
+    
+    sendAjaxRequest(urldataAll, 'region_news_items');
+    sendAjaxRequest(urldataTop, "region_top_news_items");
+    
+    updateSelectedRegion(selected_region_url);
+    updateHeightBlock();
+//    if(document.getElementById("all_region_news_btn"))
+//    {
+//        document.getElementById("all_region_news_btn").href = url;
+//    }
+    setDocumentCookies('news_region_url', encodeURI(url));
+//    document.cookie = 'news_region_url=; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+//    document.cookie = "news_region_url=" + encodeURI ( url ) + '; path=/; expires='+date;
+}
+
+function changeRegionContacts(url, tpl, update_block_id, selected_id, update_parent_id)
+{
+    deleteBlock(update_block_id);
+    var url_part = "&tpl="+tpl;
+
+    var xhr = new XMLHttpRequest();
+
+    var end_url = 'xhr=html'+url_part+'&r=' + Math.random();
+    url += url.indexOf('?')==-1 ? "?"+end_url : "&"+end_url;
+    xhr.open('GET', url, true);
+
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState != 4) return;
+
+        if (xhr.responseText=="") return;
+
+            var newsItemsElem = document.getElementById(update_block_id);
+            newsItemsElem.innerHTML = xhr.responseText;
+            var selected_el = document.getElementById(selected_id);
+            var parent = document.getElementById(update_parent_id);
+            parent.innerHTML = selected_el.innerHTML;
+
+        return false;
+    }
+    xhr.send(null);
+    return false;
+}
+
+function runSelectedContent(index, value) 
+{
+    changeRegionContacts(index, "commitet", $(this).next().attr("id"));
+}
+
+//
+//
+/*.change(function(){
+        var file_name;
+        if( file_api && inp[ 0 ].files[ 0 ] ) 
+            file_name = inp[ 0 ].files[ 0 ].name;
+        else
+            file_name = inp.val().replace( "C:\\fakepath\\", '' );
+
+        if( ! file_name.length )
+            return;
+
+        if( lbl.is( ":visible" ) ){
+            lbl.text( file_name );
+            btn.text( "Открыть документ" );
+        }else
+            btn.text( file_name );
+    }).change();
+
+});
+$( window ).resize(function(){
+    $( ".file_upload input" ).triggerHandler( "change" );
+}); кнопка file */
+
+
+
+/* конец кнопка file */
+
+function getVideoDuration(url)
+{
+    if (document.getElementById('video_ids')) {
+        var videoIds = document.getElementById('video_ids').value;
+
+        printVideoDuration(url, videoIds);
+    }
+}
+
+function printVideoDuration(url, videoIds)
+{
+    if ( typeof videoList == "undefined"  )
+        return false;
+    //if (!document.getElementById('video_duration_' + idEl)) return false;
+
+    var xhr = new XMLHttpRequest();
+    var msg = "vids="+videoIds;
+
+    var end_url = 'xhr=html&r=' + Math.random()+(msg=="" ? "": "&"+msg);
+    url += url.indexOf('?')==-1 ? "?"+end_url : "&"+end_url;
+    xhr.open('GET', url, true);
+
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState != 4) return;
+
+        if (xhr.responseText=="") return;
+
+        var videoIdsAndDurationsList = JSON.parse(xhr.responseText);
+        for ( var recordId in videoList) {
+            document.getElementById('video_duration_' + recordId).innerHTML = videoIdsAndDurationsList[videoList[recordId]];
+        }
+
+        return false;
+    }
+    xhr.send(null);
+    return false;
+}
+
+function setAction(input_id, el_id, value, el, parent_id){
+    if (!input_id || !document.getElementById(input_id) || !el_id || !document.getElementById(el_id) || !el) return false;
+    document.getElementById(input_id).value = value;
+    document.getElementById(el_id).innerHTML = el.innerHTML;
+    if (parent_id){
+        document.getElementById(parent_id).style.display = 'none';
+    }else{
+        el.parentNode.style.display = 'none';
+    }
+}
+

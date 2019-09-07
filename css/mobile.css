@@ -1,0 +1,445 @@
+
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    text-align:center;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+
+}
+
+.sidenav a:hover{
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+
+/*SiteSearch*/
+
+
+
+.sitesearch {
+   height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    text-align:center;
+}
+
+.sitesearch a {
+    padding: 4px 4px 4px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+
+}
+
+.sitesearch a:hover{
+    color: #f1f1f1;
+}
+
+.sitesearch .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.sitesearch .closebtnsearch {
+     position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+   
+}
+
+
+
+/* end SiteSearch*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* For mobile phones: */
+[class*="col-"] {
+    width: 100%;
+}
+/*---------------------------------Normal Mode---------------------------------------*/
+@media only screen 
+and (min-width : 1225px) {
+
+    /* Styles */
+	 /* Styles */
+	 .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+	
+	
+	#sidebar2
+       {
+      margin: 1%;	
+	  padding: 40px 30px 0px 30px;	
+	  border: 1px solid #E7DFD7;
+	  border-radius: 8px;
+	 
+    }
+
+}
+
+/*---------------------------------Desctop---------------------------------------*/
+@media only screen and (min-width : 1025px) and (max-width: 1224px)
+{
+
+    /* Styles */
+	 .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+	
+	#menu{display:none;}
+	
+	
+	.rmenu  {display:block;margin-left:15px;} /*dont play role*/
+	
+	.w3-right {display:none;}
+	.w3-right-mobile {float: right; display:block;}	
+	
+	#sidebar2
+       {
+      margin: 1%;	
+	  padding: 40px 30px 0px 30px;	
+	  border: 1px solid #E7DFD7;
+	  border-radius: 8px;
+	  /* background: blue;  */
+    }
+	
+	
+	
+	
+	
+	
+	/*TODO: MAKE here Mobile view*/
+
+} /*Desctop end*/
+
+/*---------------------------------Tablets 1---------------------------------------*/
+
+@media only screen and (min-width: 768px)  and (max-width: 1024px)   {
+   /* ==== OLD   Value ===
+   
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+	*/
+	
+	   .col-m-1 {width: 8.33%;}
+    .col-m-2 {width: 16.66%;}
+    .col-m-3 {width: 25%;}
+    .col-m-4 {width: 33.33%;}
+    .col-m-5 {width: 41.66%;}
+    .col-m-6 {width: 50%;}
+    .col-m-7 {width: 58.33%;}
+    .col-m-8 {width: 66.66%;}
+    .col-m-9 {width: 75%;}
+    .col-m-10 {width: 83.33%;}
+    .col-m-11 {width: 91.66%;}
+    .col-m-12 {width: 100%;}
+
+#menu{display:none;}
+	
+	
+	.rmenu  {display:block;margin-left:15px;} /*dont play role*/
+	
+	.w3-right {display:none;}
+	.w3-right-mobile {float: right; display:block;}	
+	
+	#sidebar2
+       {
+      margin: 1%;	
+	  padding: 40px 30px 0px 30px;	
+	  border: 1px solid #E7DFD7;
+	  border-radius: 8px;
+	 /* background: yellow;  */
+    }
+
+
+/*TODO: MAKE here Mobile view*/
+
+
+	
+	
+}
+
+
+/*---------------------------------Tablets 2---------------------------------------*/
+
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+    /* For tablets: */
+    .col-m-1 {width: 8.33%;}
+    .col-m-2 {width: 16.66%;}
+    .col-m-3 {width: 25%;}
+    .col-m-4 {width: 33.33%;}
+    .col-m-5 {width: 41.66%;}
+    .col-m-6 {width: 50%;}
+    .col-m-7 {width: 58.33%;}
+    .col-m-8 {width: 66.66%;}
+    .col-m-9 {width: 75%;}
+    .col-m-10 {width: 83.33%;}
+    .col-m-11 {width: 91.66%;}
+    .col-m-12 {width: 100%;}
+	
+	
+#menu{display:none;}
+	
+	
+	.rmenu  {display:block;margin-left:15px;} /*dont play role*/
+	
+	.w3-right {display:none;}
+	.w3-right-mobile {float: right; display:block;}	
+	
+	
+	
+/* Here can place for small size between phone and tablets*/	
+#sidebar2
+{
+    margin: 1%;	
+	padding: 40px 30px 0px 30px;	
+	border: 1px solid #E7DFD7;
+	border-radius: 8px;
+	/* background: cyan; */
+}
+
+
+
+#logo {
+	margin: 0px;
+	padding: 1em 0px;
+	color: #000000;
+	width:50%;
+    float:left;
+}
+
+
+#logo1 {
+	margin: 0px;
+	padding: 0em 0px;
+	color: #000000;
+	width:25%;
+    float:left;
+}
+#logo2 {
+	margin: 0px;
+	padding: 0em 0px;
+	color: #000000;
+	width:25%;
+    float:left;
+}
+
+
+#logo h1 {
+	margin: 0px;
+	padding: 0px 0px 0px 0.2em;
+	text-transform: lowercase;
+	font-size: 3em;
+	color: #323030;
+}
+
+
+
+}
+
+
+
+
+/* --------------------Media query for iPhone and handheld devices -------------------------------- */
+
+@media handheld, only screen and (max-width: 599px), only screen and (max-device-width: 599px) and (orientation:portrait)   /* Was 468px */
+{
+	
+   
+	#sidebar{ width: 100%; display:none;}
+	#sidebar2{ width: 100%; display:none; }
+	#content{ width: 100%; }             
+	
+	#menu{display:none;}
+	
+	
+	.rmenu  {display:block;margin-left:15px;} /*dont play role*/
+	
+	.w3-right {display:none;}
+	.w3-right-mobile {float: right; display:block;}
+	
+/*	
+.search{float:right; margin-top: 0px;}
+*/
+
+	 
+	
+	
+
+body {
+	margin: 0;
+	padding: 0;
+	background: #FFFFFF;
+	
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1em; /**SHRIFT* 13px;*/ 
+	/*font-family: "Open Sans", helvetica, sans-serif;
+  font-size: 18px;*/
+	
+	color: #3B3B3B;
+}
+
+
+/*  Text  in the body */
+p {
+  font-size: 1.0rem;
+  color: #635a5a; }
+  
+
+
+#banner {
+	width: 95%;/***1200px;*/
+	height: 30%;
+	margin: 20px auto 0px auto; 
+	 background-image:url('/images/bannerSm.jpg');
+	 background-repeat: no-repeat;
+	 border-radius: 8px;
+}
+
+#logo{ width: 100%;}
+
+#logo p {
+	margin: 0px;
+	padding: 0px 0px 0px 1.4em;
+	text-transform: uppercase;
+	font-family: 'Arvo', serif;
+	font-size: 1em;
+	color: #3B3B3B;
+	
+	
+}
+
+	
+
+#logo h1
+ {
+	margin: 0px;
+	padding: 0px 0px 0px 0.4em;
+	text-transform: lowercase;
+	font-size: 3em;
+	color: #323030;
+}
+
+	
+#logo1, #logo2 {display: none;}
+
+
+/*Text in Post*/
+.post {
+	margin-bottom: 15px;
+	padding: 30px 15px;
+	border: 1px solid #E7DFD7;
+	border-radius: 8px;
+	background: #F8F8F8;
+}
+
+
+
+.post .title {
+	/***height: 38px;*/
+	margin-bottom: 10px;
+	padding: 12px 0 0 0px;
+	font-size: 2em;/**SHRIFT*32px;*/
+}
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}	
+  
+  
+   .sitesearch {padding-top: 15px;}
+   .sitesearch {font-size: 18px;}	
+  
+  
+} /*  320px */
+
+
+
+
+
+
+
+
+
+
+
+
+
