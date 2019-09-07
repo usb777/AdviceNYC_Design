@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="keywords" content="advise Nyc, advicer NYC, NYC places, New York news" />
+<meta name="description" content="advice NYC" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdviceNyc - spend time in New York with pleasure</title>
+<link href="http://fonts.googleapis.com/css?family=Arvo|Open+Sans:400,300,600,700" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/mobile.css" />
+<link rel="stylesheet" href="css/login_reg.css" />
+<script> 
+function validate()
+{ 
+var username = document.form.login.value; 
+var password = document.form.password.value;
+if (username==null || username=="")
+{ 
+alert("Username cannot be blank"); 
+return false; 
+}
+else if(password==null || password=="")
+{ 
+alert("Password cannot be blank"); 
+return false; 
+} 
+}
+</script> 
+</head>
+<body>
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onClick="closeNav()">&times;</a>
+  <a href="#">HOMEPAGE</a>
+  <a href="#">BLOG</a>
+  <a href="#">PHOTOS</a>
+  <a href="#">ABOUT</a>
+  <a href="#">LINKS_mob</a>
+  <a href="#">CONTACT</a>
+</div>
+
+
+<!--// Mobile Search //-->
+<div id="mySearch" class="sitesearch">
+   
+  <a href="javascript:void(0)" class="closebtnsearch" onClick="closeSearch()">&times;</a>  
+  <a href="#"> <input type="text" name="search" id="input-text" placeholder="Search...">  </a>
+</div>
+
+<div id="menu-wrapper">
+
+
+
+<!-- sidebar mobile -->
+<div class='rmenu' id="mySidenav"> 
+
+ <div class="w3-left w3-button w3-padding-16 ">	  
+   <span style="font-size:30px;cursor:pointer" onClick="openNav()"> <a href="#"><img src="images/rmenu.png" alt="menu" ></a>  </span>
+   </div>
+   
+								
+
+	
+	<div class="w3-right-mobile"> 
+	
+	
+							
+			 <span style="font-size:30px;cursor:pointer" onClick="openSearch()"> <a href="#"><img src="images/search.png" alt="menu" ></a>  </span>				
+										
+										
+
+	</div>		 
+	
+   
+</div>
+<!-- /sidebar mobile -->
+
+
+	<div id="menu">
+	
+	
+	 <div class="w3-left w3-padding-16 " onClick="w3_open()">	
+	 
+		<ul>
+			<li class="current_page_item"><a href="#">Homepage</a></li>
+			<li><a href="#">Blog</a></li>
+			<li><a href="#">Photos</a></li>
+			<li><a href="#">About</a></li>
+			<li><a href="#">Links</a></li>
+			<li><a href="#">Contact</a></li>
+			
+		</ul>
+		
+	</div>
+    
+   
+
+	
+	<div class="w3-right w3-padding-16"> <form method="get" action="#" style="margin-right: 2.5rem;">
+									<div>
+										<input type="text" name="s" id="search-text" value="" placeholder="Search ..." />
+									</div>
+										</form>
+	</div>
+	
+	
+	
+	 
+	
+		  
+	</div>
+	<!-- end #menu --> 
+	
+</div>
+<div id="banner" ><img class=="imgbanner" src="images/bannerL.jpg" width="100%" height="auto" alt="advicenyc slider" /></div>
+
+
+
+
+<div id="header-wrapper">
+	<div id="header">
+		<div id="logo" >
+			<h2><a href="#">Advice<span>NYC</span></a></h2>
+			<p>POWERED by <a href="http://dslab.us" rel="nofollow">DSlab</a></p>
+		</div>
+		
+		<div id="logo1">
+			<!--// <h1>New York Time</h1> //-->
+	 <h2><center> Current Time </center></h2> 
+	<!--//
+	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd (HH+1):mm:ss");
+    	Date date = new Date();
+  	 out.println(dateFormat.format(date)); //2016/11/16 12:08:43
+  //-->
+		</div>
+		<div id="logo2">
+			<h2><center> NYC Temperature</center></h2>
+		</div>
+			
+	</div>
+</div>
+
+
+
+<div class = "wrapper"> 
+	<!-- end #header -->
+	<div id="page">
+					
+      <div class="col-3 col-m-3 ">
+       <div id="sidebar">
+					<ul>
+					
+						<li>
+							<h2>Categories</h2>
+							<ul>
+								<li><a href="#">Cultural Arts</a></li>
+								<li><a href="#">Dinning</a></li>
+								<li><a href="#">Sightseeing</a></li>
+								<li><a href="#">Flea Market</a></li>
+								<li><a href="#">Shopping</a></li>
+							</ul>
+						</li>
+						<li>
+							<h2>Blogroll</h2>
+							<ul>
+								<li><a href="#">Aliquam libero</a></li>
+								<li><a href="#">Consectetuer adipiscing elit</a></li>
+								<li><a href="#">Metus aliquam pellentesque</a></li>
+								<li><a href="#">Suspendisse iaculis mauris</a></li>
+								<li><a href="#">Urnanet non molestie semper</a></li>
+								<li><a href="#">Proin gravida orci porttitor</a></li>
+							</ul>
+						</li>
+						<li>
+							<h2>Archives</h2>
+							<ul>
+								<li><a href="#">2017</a></li>
+								<li><a href="#">2016</a></li>
+								<li><a href="#">2015</a></li>
+								
+							</ul>
+						</li>
+					</ul>
+</div> <!-- div sidebar -->
+</div>  <!-- div col -->
+				<!-- end #sidebar -->
+				
+	<!-- 	  /*		
+<%@include file="header.jsp" %> 
+<%@include file="sidebarLeft.jsp" %>    */
+ -->
+
+    <div class="col-6 col-m-9">
+				
+				<div id="content">
+					<div class="post">
+						
+						<h2 class="title"><a href="#">Welcome to AdviceNYC </a></h2>
+						<p class="meta"><span class="date">February 15, 2013</span><span class="posted">Posted by <a href="#">Dzen-Dzimon</a></span></p>
+						<div style="clear: both;">&nbsp;</div>
+						<div class="entry">
+						
+						<p id="demo">Click me.</p>
+						
+						<img src="images/places/Lady_Liberty.jpg"  class="img_post">
+							<p>The Statue of Liberty (Liberty Enlightening the World; French: La Liberté éclairant le monde) is a colossal neoclassical 
+							sculpture on Liberty Island in New York Harbor in New York, in the United States. The copper statue, a gift from the people 
+							of France to the people of the United States, was designed by French sculptor Frédéric Auguste Bartholdi and its metal 
+							framework was built by Gustave Eiffel. The statue was dedicated on October 28, 1886.</p>
+						
+							<p class="links"><a href="#" class="button">Read More</a></p>
+						</div>
+					</div>
+					<div class="post">
+						<h2 class="title"><a href="#">Statue of Liberty</a></h2>
+						<p class="meta"><span class="date">February 10, 2013</span><span class="posted">Posted by <a href="#">
+						Admin</a></span></p>
+						<div style="clear: both;">&nbsp;</div>
+						<div class="entry">
+						
+						
+						
+							 <img src="images/places/Liberty_Island.jpg"  class="img_post">
+							
+						<p>	
+							This is <strong>Liberty Island</strong>, a federally owned island in Upper New York Bay in the United States, best
+							known as the location of the Statue of Liberty (Liberty Enlightening the World). The island is an exclave of the New York City borough 
+							of Manhattan, surrounded by the waters of Jersey City, New Jersey.<!-- Long known as Bedloe's Island, it was renamed by an act of the United
+							States Congress in 1956. Liberty Island became part of the Statue of Liberty National Monument in 1937 through Presidential 
+							Proclamation 2250, signed by President Franklin D. Roosevelt. In 1966, it was listed on the National Register of Historic 
+							Places as part of Statue of Liberty National Monument, Ellis Island and Liberty Island. --> </p>
+							
+						
+						
+						 
+							
+							<p class="links"><a href="#" class="button">Read More</a>
+							<!--//&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="button">Comments</a>//--></p>
+						</div>
+					</div>
+					<div class="post">
+						<h2 class="title"><a href="#">Central Park </a></h2>
+						<p class="meta"><span class="date">February 08, 2013</span><span class="posted">Posted by <a href="#">Alice Key</a></span></p>
+						<div style="clear: both;">&nbsp;</div>
+						<div class="entry">
+						
+							 <img src="images/places/Central_Park.jpg"  class="img_post">
+							
+						<p>	
+							Central Park is an urban park in Manhattan, New York City. It is located between the Upper West Side and Upper East Side, 
+							roughly bounded by Fifth Avenue on the east, Central Park West (Eighth Avenue) on the west, Central Park South (59th Street) 
+							on the south, and Central Park North (110th Street) on the north. Central Park is the most visited urban park in the United States,
+							with an estimated 37–38 million visitors annually, and one of the most filmed locations in the world. In terms of area, 
+							Central Park is the fifth largest park in New York City, covering 843 acres (341 ha).</p>
+							
+							
+							<p class="links"><a href="#" class="button">Read More</a>
+							<!--//&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="button">Comments</a>//--></p>
+						</div>
+					</div>
+				
+				</div>   <!-- div #content -->
+			</div>       <!-- div col -->
+				<!-- end #content -->
+				
+	<!--// /* 	<%@include file="sidebarRight.jsp" %> */  //-->	
+		
+		<div class="col-3 col-m-12">
+			<div id="sidebar2">
+					<ul>
+					
+						<li>
+						<h2>Login</h2>
+							<form action="LoginServlet" method="post" onSubmit="return validate()">
+									<div>
+						<span style="color:red"><%=(request.getAttribute("errMessage") == null) ? "": request.getAttribute("errMessage")%></span>
+										<p><input type="text" name="login" id="login-text" value="" placeholder="login" /> <br/><br/>
+										<input type="password" name="password" id="password-text" value="" placeholder="password" /> 
+										<input type="submit" id="login-submit" value="Submit" />											
+										<button class="button login_button" id="">Log in</button><br>
+										<a href="register.jsp" class="register">Sign up!</a>  <br>
+										<a href="restore.jsp" class="register">Forgot your password? </a>
+										</p>
+									</div>
+								</form>
+					</li>
+					
+						<li>
+							<h2>Suspendisse libero</h2>
+							<ul>
+								<li><a href="#">Aliquam libero</a></li>
+								<li><a href="#">Consectetuer adipiscing elit</a></li>
+								<li><a href="#">Metus aliquam pellentesque</a></li>
+								<li><a href="#">Suspendisse iaculis mauris</a></li>
+								<li><a href="#">Urnanet non molestie semper</a></li>
+								<li><a href="#">Proin gravida orci porttitor</a></li>
+							</ul>
+						</li>
+						<li>
+							<h2>Aliquam mauris</h2>
+							<ul>
+								<li><a href="#">Aliquam libero</a></li>
+								<li><a href="#">Consectetuer adipiscing elit</a></li>
+								<li><a href="#">Metus aliquam pellentesque</a></li>
+								<li><a href="#">Suspendisse iaculis mauris</a></li>
+								<li><a href="#">Urnanet non molestie semper</a></li>
+								<li><a href="#">Proin gravida orci porttitor</a></li>
+							</ul>
+						</li>
+						<li>
+							<h2>Lorem Ipsum</h2>
+							<ul>
+								<li><a href="#">Aliquam libero</a></li>
+								<li><a href="#">Consectetuer adipiscing elit</a></li>
+								<li><a href="#">Metus aliquam pellentesque</a></li>
+								<li><a href="#">Suspendisse iaculis mauris</a></li>
+								<li><a href="#">Urnanet non molestie semper</a></li>
+								<li><a href="#">Proin gravida orci porttitor</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>  <!--//sidebar2 //-->
+		   </div>   <!--//div col //-->
+				
+		
+	
+		</div>
+	
+	<!-- end #page --> 
+</div>				
+		
+	<!--// /* <%@include file="footer.jsp" %> */	//-->	
+			
+	
+			
+			
+<div id="footer">
+	<p>&copy; AdviceNYC. | Photos by <a href="http://advicenyc.com/">DzenDzimon</a> | POWERED by <a href="http://dslab.us" rel="nofollow">DSlab</a>.
+<%
+out.print( request.getHeader("x-forwarded-for") );
+%> 
+	</p>
+</div>
+<!-- end #footer -->
+
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "100%";
+}
+
+function openSearch() {
+    document.getElementById("mySearch").style.width = "100%";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+
+function closeSearch() {
+    document.getElementById("mySearch").style.width = "0";
+}
+
+
+</script>
+
+</body>
+</html>
+	
+	
+			
+			
+			
